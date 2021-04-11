@@ -19,22 +19,23 @@ export default function App() {
 
   return (
   <> 
-   <ScrollView>
+   <StatusBar style="dark" backgroundColor="white" />
     <View style={styles.container}>
     
+   <ScrollView showsVerticalScrollIndicator={false} >
       <Header />
       <View style={{marginTop:40,width:"100%"}}>
           <CardHeader dataInfo={dataInfo} />
           <CardBody dataInfo={dataInfo} />
       </View>
     
-   
+      </ScrollView>
     </View>
     <Button title="Siguiente" onPress={()=>{handleNewPerson()}} />
-    <StatusBar style="dark" backgroundColor="white" />
+ 
     
      
-    </ScrollView>
+ 
    </>
   );
 }
