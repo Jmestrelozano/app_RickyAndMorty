@@ -1,21 +1,49 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ApiAxios } from './api/api';
+import CardBody from './components/CardBody';
+import CardHeader from './components/CardHeader';
+import Header from './components/Header';
 
 export default function App() {
+  const [Next, setNext] = useState(1)
+  const [dataInfo ,setGuardarInfo] = useState([])
+
+  const handleNewPerson = () =>{
+    setNext(Next+1)
+  }
+  useEffect(() => {
+ ApiAxios(Next).then(result =>setGuardarInfo(result.data))
+  }, [Next])
+
   return (
+  <> 
+   <ScrollView>
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    
+      <Header />
+      <View style={{marginTop:40,width:"100%"}}>
+          <CardHeader dataInfo={dataInfo} />
+          <CardBody dataInfo={dataInfo} />
+      </View>
+    
+   
     </View>
+    <Button title="Siguiente" onPress={()=>{handleNewPerson()}} />
+    <StatusBar style="dark" backgroundColor="white" />
+    
+     
+    </ScrollView>
+   </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#00a5be',
+alignItems:"center",
+
   },
 });
